@@ -1,0 +1,29 @@
+# Windows specific files
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# PowerShell specific
+*.ps1xml
+
+# Logs and data
+*.log
+logs/
+*.tmp
+*.temp
+
+# Configuration files with personal data
+config_personal.json
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Editor files
+.vscode/
+*.code-workspace
+
+# System files
+.DS_Store
+.directory
