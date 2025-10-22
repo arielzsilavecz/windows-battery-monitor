@@ -40,9 +40,10 @@ Write-Host "Cleaning existing tasks..." -ForegroundColor Yellow
 schtasks /delete /tn "BatteryAlert" /f 2>$null
 schtasks /delete /tn "BatteryAlertSimple" /f 2>$null
 
-# Create scheduled task
-$taskCommand = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptPath`""
-$createResult = schtasks /create /tn "BatteryAlert" /tr $taskCommand /sc onlogon /f
+
+
+$taskCommand = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`" *>>C:\ProgramData\BatteryAlert\task_output.log"
+$createResult = schtasks /create /tn "BatteryAlert" /tr $taskCommand /sc minute /mo 1 /RL HIGHEST /f
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Task created successfully" -ForegroundColor Green

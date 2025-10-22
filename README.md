@@ -110,3 +110,47 @@ Issues and pull requests welcome! This tool was created to solve the specific pr
 ---
 
 **Author**: Created to solve battery monitoring after suspend/hibernation on Windows laptops.
+
+## Windows Battery Monitor
+
+### How does it work?
+- Monitors battery level and alerts when the configured limit is reached (default: 80%).
+- Shows notifications and can use voice if enabled.
+- Writes logs to `C:\ProgramData\BatteryAlert\service.log`.
+
+### Recommended usage
+1. **Manual execution:**
+   - Open PowerShell.
+   - Run:
+     ```powershell
+     cd "C:\Users\ariel\OneDrive\Documentos\windows-battery-monitor"
+     powershell.exe -ExecutionPolicy Bypass -File .\battery_service_clean.ps1
+     ```
+   - Keep the window open for continuous monitoring.
+
+2. **Automatic execution at login:**
+   - Create a shortcut with this target:
+     ```
+     powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\Users\ariel\OneDrive\Documentos\windows-battery-monitor\battery_service_clean.ps1"
+     ```
+   - Place the shortcut in:
+     `C:\Users\ariel\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+
+### Important notes
+- Scheduled Task execution may not work in all environments due to Windows, OneDrive, or antivirus restrictions.
+- The script and logs work correctly if run manually or from the Startup folder.
+- To view logs:
+  ```powershell
+  Get-Content "C:\ProgramData\BatteryAlert\service.log" -Tail 20
+  ```
+
+### Configuration
+- The configuration file is located at `C:\ProgramData\BatteryAlert\config.json`.
+- You can modify limits and options by running:
+  ```powershell
+  .\config_battery_clean.ps1 -ShowConfig
+  ```
+
+---
+
+For questions or issues, check the logs first and make sure to run the script as a normal user (not as a scheduled task).
